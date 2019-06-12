@@ -113,7 +113,7 @@ export default {
   },
 
   mounted () {
-    console.log(this.$page);
+    console.log(this.$blog);
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })

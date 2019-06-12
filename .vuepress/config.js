@@ -4,4 +4,7 @@ module.exports = {
   markdown: {
     lineNumbers: true,
   },
+  themeConfig: {
+    postDir: '/posts',
+  },
 };

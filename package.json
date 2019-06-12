@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dayjs": "^1.8.14",
+    "lodash": "^4.17.11"
+  }
+}
