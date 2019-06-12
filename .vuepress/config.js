@@ -5,6 +5,7 @@ module.exports = {
     lineNumbers: true,
   },
   themeConfig: {
+    lastUpdated: '最后更新',
     postDir: '/posts',
   },
 };
