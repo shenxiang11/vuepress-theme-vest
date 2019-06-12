@@ -1,13 +1,13 @@
 ---
 title: 测试啊2
 thumbnail: ../images/test.png
-category: life
+category: fitness
 tags:
 - ps3
 - Games
 ---
 
-![An image](/public/assets_01/test.png)
+12313123123
 
 <!-- more -->
 

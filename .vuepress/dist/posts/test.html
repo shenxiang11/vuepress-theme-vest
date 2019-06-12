@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Flutter | 香饽饽胖覆覆</title>
+    <meta name="description" content="你好骚啊～">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.1495e74a.css" as="style"><link rel="preload" href="/assets/js/app.84ba8b22.js" as="script"><link rel="preload" href="/assets/js/2.58cd7ce3.js" as="script"><link rel="preload" href="/assets/js/1.15abc5f9.js" as="script"><link rel="preload" href="/assets/js/8.5638e140.js" as="script"><link rel="prefetch" href="/assets/js/4.2f2f0334.js"><link rel="prefetch" href="/assets/js/5.31e2d341.js"><link rel="prefetch" href="/assets/js/6.d0db57ce.js"><link rel="prefetch" href="/assets/js/7.5815a7bc.js"><link rel="prefetch" href="/assets/js/9.1e167e13.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.1495e74a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">香饽饽胖覆覆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>本文讲 Flutter 的 SnackBar 及 Builder。</p> <h1 id="flutter-基础-widget-——-snackbar-和-builder-的使用"><a href="#flutter-基础-widget-——-snackbar-和-builder-的使用" aria-hidden="true" class="header-anchor">#</a> Flutter 基础 Widget —— SnackBar 和 Builder 的使用</h1> <p>本文讲 Flutter 的 SnackBar 及 Builder。</p> <p>SnackBar 是 Flutter 的底部消息提示，在使用 SnackBar 的时候，需要用到 Builder ，Builder 也是 Widget，Builder 可以用闭包的方式创建 子Widget，使得 子Widget 可以使用 父Widget 的上下文，这里你可能还不太好理解，下面看具体的案例。</p> <h1 id="snackbar"><a href="#snackbar" aria-hidden="true" class="header-anchor">#</a> <a href="https://link.juejin.im?target=https%3A%2F%2Fdocs.flutter.io%2Fflutter%2Fmaterial%2FSnackBar-class.html" target="_blank" rel="noopener noreferrer">SnackBar<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h1> <p><img src="https://user-gold-cdn.xitu.io/2019/2/26/1692a75eadbc4ff0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="">
+SnackBar 是具有可选操作的轻量级消息提示，在屏幕的底部显示。</p> <h2 id="snackbar-的快速上手"><a href="#snackbar-的快速上手" aria-hidden="true" class="header-anchor">#</a> SnackBar 的快速上手</h2> <p>SnackBar 需要用 <code>Scaffold.of(context).showSnackBar()</code> 来显示，使用方式如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Scaffold.of(context).showSnackBar(SnackBar(
+    content: Text('SnackBar'), duration: Duration(seconds: 5)));
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>完整代码如下，点击按钮，然后弹出一个提示：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main() =&gt; runApp(SnackBarBuilderWidget());
+
+class SnackBarBuilderWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &quot;Flutter Demo&quot;,
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(title: Text(&quot;Flutter UI Widget -- SnackBar 及 Builder&quot;)),
+        body: RaisedButton(
+          child: Text('Show SnackBar'),
+          onPressed: () {
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('SnackBar'), duration: Duration(seconds: 5)));
+          },
+        ),
+      ),
+    );
+  }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><p>但是如果这么写，运行后，就会报如下的错误：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>I/flutter ( 8385): ══╡ EXCEPTION CAUGHT BY GESTURE ╞═══════════════════════════════════════════════════════════════════
+I/flutter ( 8385): The following assertion was thrown while handling a gesture:
+I/flutter ( 8385): Scaffold.of() called with a context that does not contain a Scaffold.
+I/flutter ( 8385): No Scaffold ancestor could be found starting from the context that was passed to Scaffold.of(). This
+I/flutter ( 8385): usually happens when the context provided is from the same StatefulWidget as that whose build
+I/flutter ( 8385): function actually creates the Scaffold widget being sought.
+I/flutter ( 8385): There are several ways to avoid this problem. The simplest is to use a Builder to get a context that
+I/flutter ( 8385): is &quot;under&quot; the Scaffold. For an example of this, please see the documentation for Scaffold.of():
+I/flutter ( 8385):   https://docs.flutter.io/flutter/material/Scaffold/of.html
+I/flutter ( 8385): A more efficient solution is to split your build function into several widgets. This introduces a
+I/flutter ( 8385): new context from which you can obtain the Scaffold. In this solution, you would have an outer widget
+I/flutter ( 8385): that creates the Scaffold populated by instances of your new inner widgets, and thenin these inner
+I/flutter ( 8385): widgets you would use Scaffold.of().
+I/flutter ( 8385): A less elegant but more expedient solution is assign a GlobalKey to the Scaffold, then use the
+I/flutter ( 8385): key.currentState property to obtain the ScaffoldState rather than using the Scaffold.of() function.
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><p>提示 Scaffold.of(context) 里的 context 没有 Scaffold，找不到 Scaffold，所以报错了，为什么会出现这个问题？</p> <p>首先，看一下 context 是从哪里来的，context 是从 build 函数里传过来的：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Widget build(BuildContext context) {
+    ...
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><p>build 函数里传来的 context 是其 父Widget，也就是 MyApp 的 context，而  MyApp 的 context 里当然没有 Scaffold，所以会报 context 里没有 ScaffoldScaffold 的错误。 那么怎么解决这个问题呢？有两个方法：</p> <ol><li>使用 Builder Widget</li> <li>将使用 SnackBar 的 Widget 拆分出来</li></ol> <h2 id="_1-使用-builder"><a href="#_1-使用-builder" aria-hidden="true" class="header-anchor">#</a> 1. 使用 Builder</h2> <h4 id="代码所在位置"><a href="#代码所在位置" aria-hidden="true" class="header-anchor">#</a> 代码所在位置</h4> <p>flutter_widget_demo/lib/snackbar/SnackBarBuilderWidget.dart</p> <h4 id="builder-的构造函数及参数说明"><a href="#builder-的构造函数及参数说明" aria-hidden="true" class="header-anchor">#</a> Builder 的构造函数及参数说明</h4> <p>Builder 的构造函数为：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>class Builder extends StatelessWidget {
+  const Builder({
+    Key key,
+    @required this.builder
+  }) : assert(builder != null),
+       super(key: key);
+    ...
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><table><thead><tr><th>参数名字</th> <th>参数类型</th> <th>意义</th> <th>必选 or 可选</th></tr></thead> <tbody><tr><td>key</td> <td>Key</td> <td>Widget 的标识</td> <td>可选</td></tr> <tr><td>builder</td> <td>WidgetBuilder</td> <td>创建 子Widget</td> <td>必选</td></tr></tbody></table> <p>Builder 的必选参数是 WidgetBuilder，接下里介绍一下 WidgetBuilder 的使用。</p> <h4 id="widgetbuilder"><a href="#widgetbuilder" aria-hidden="true" class="header-anchor">#</a> WidgetBuilder</h4> <p>WidgetBuilder 是一个函数，定义为：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>typedef WidgetBuilder = Widget Function(BuildContext context);
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>应该说 WidgetBuilder 函数实现了 Builder Widget 的核心功能，Builder 只是 WidgetBuilder 的封装，在有的地方，其实是直接使用 WidgetBuilder 的。</p> <h4 id="builer-的使用"><a href="#builer-的使用" aria-hidden="true" class="header-anchor">#</a> Builer 的使用</h4> <p>Builder 的使用方法如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>home: Scaffold(
+    appBar: AppBar(title: Text(&quot;Flutter UI Widget -- SnackBar 及 Builder&quot;)),
+    body: Builder(
+      builder: (context) =&gt; RaisedButton(
+        child: Text('Show SnackBar'),
+        onPressed: () {
+          Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('SnackBar'),
+              duration: Duration(seconds: 5)));
+        },
+      ),
+    ),
+),
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>Builder 使用 WidgetBuilder 来创建子 Widget。例如上面的例子，使用 Builder，Builder 是一个闭包，将 Scaffold 的 context 传递给 子Widget，这样 SnackBar 使用的 context 就是 Scaffold 的 context。</p> <p>完整代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main() =&gt; runApp(SnackBarBuilderWidget());
+
+class SnackBarBuilderWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &quot;Flutter Demo&quot;,
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(title: Text(&quot;Flutter UI Widget -- SnackBar 及 Builder&quot;)),
+        body: Builder(
+          builder: (context) =&gt; RaisedButton(
+                child: Text('Show SnackBar'),
+                onPressed: () {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('SnackBar'),
+                      duration: Duration(seconds: 5)));
+                },
+              ),
+        ),
+      ),
+    );
+  }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br></div></div><p>运行效果如下：
+<img src="https://user-gold-cdn.xitu.io/2019/4/9/16a000385b379abf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></p> <h2 id="_2-将使用-snackbar-的-widget-拆分出来"><a href="#_2-将使用-snackbar-的-widget-拆分出来" aria-hidden="true" class="header-anchor">#</a> 2. 将使用 SnackBar 的 Widget 拆分出来</h2> <h4 id="代码所在位置-2"><a href="#代码所在位置-2" aria-hidden="true" class="header-anchor">#</a> 代码所在位置</h4> <p>flutter_widget_demo/lib/snackbar/SnackBarNoBuilerWidget.dart</p> <h4 id="拆分方法"><a href="#拆分方法" aria-hidden="true" class="header-anchor">#</a> 拆分方法</h4> <p>将使用 SnackBar 的 Widget 拆分出来后，SnackBar 的 Widget 使用的 context 就是 Scaffold 的 context。</p> <p>代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main() =&gt; runApp(SnackBarNoBuilerWidget());
+
+class SnackBarNoBuilerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &quot;Flutter Demo&quot;,
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: Scaffold(
+          appBar: AppBar(title: Text(&quot;Flutter UI基础Widget -- SnackBar&quot;)),
+          body: SnackBarWidget()),
+    );
+  }
+}
+
+class SnackBarWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return RaisedButton(
+      child: Text('Show SnackBar'),
+      onPressed: () {
+        Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('SnackBar'), duration: Duration(seconds: 5)));
+      },
+    );
+  }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br></div></div><h2 id="总结"><a href="#总结" aria-hidden="true" class="header-anchor">#</a> 总结</h2> <p>两种方式，使用 Builder Widget，或者将 SnackBar 拆分出来，都可以实现底部消息提示，但是建议使用 Builder。</p> <h2 id="snackbar-的构造函数及参数说明"><a href="#snackbar-的构造函数及参数说明" aria-hidden="true" class="header-anchor">#</a> SnackBar 的构造函数及参数说明</h2> <p>SnackBar 的构造函数为：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>class SnackBar extends StatelessWidget {
+  const SnackBar({
+    Key key,
+    @required this.content,
+    this.backgroundColor,
+    this.action,
+    this.duration = _kSnackBarDisplayDuration,
+    this.animation,
+  }) : assert(content != null),
+       assert(duration != null),
+       super(key: key);
+    ...   
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><table><thead><tr><th>参数名字</th> <th>参数类型</th> <th>意义</th> <th>必选 or 可选</th></tr></thead> <tbody><tr><td>key</td> <td>Key</td> <td>Widget 的标识</td> <td>可选</td></tr> <tr><td>content</td> <td>Widget</td> <td>SnackBar 显示的主要内容</td> <td>必选</td></tr> <tr><td>backgroundColor</td> <td>Color</td> <td>SnackBar 的背景色</td> <td>可选</td></tr> <tr><td>action</td> <td>SnackBarAction</td> <td>SnackBar 的按钮</td> <td>可选</td></tr> <tr><td>duration</td> <td>Duration</td> <td>SnackBar 显示的时间默认是4.0s</td> <td>可选</td></tr> <tr><td>animation</td> <td>Animation</td> <td>SnackBar 显示和消失的动画</td> <td>可选</td></tr></tbody></table></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">6/12/2019, 11:35:08 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.84ba8b22.js" defer></script><script src="/assets/js/2.58cd7ce3.js" defer></script><script src="/assets/js/1.15abc5f9.js" defer></script><script src="/assets/js/8.5638e140.js" defer></script>
+  </body>
+</html>

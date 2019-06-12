@@ -29,7 +29,9 @@
       />
     </Sidebar>
 
-    <Home v-if="$page.frontmatter.home"/>
+    <ArticleList
+      v-if="$route.meta.layout==='list'"
+      :list="$site.pages" />
 
     <Page
       v-else
@@ -48,14 +50,14 @@
 </template>
 
 <script>
-import Home from '@theme/components/Home.vue'
+import ArticleList from '@theme/components/ArticleList.vue'
 import Navbar from '@theme/components/Navbar.vue'
 import Page from '@theme/components/Page.vue'
 import Sidebar from '@theme/components/Sidebar.vue'
 import { resolveSidebarItems } from '../util'
 
 export default {
-  components: { Home, Page, Sidebar, Navbar },
+  components: { ArticleList, Page, Sidebar, Navbar },
 
   data () {
     return {
@@ -113,7 +115,8 @@ export default {
   },
 
   mounted () {
-    console.log(this.$site);
+    console.log('route', this.$route);
+    console.log('site:', this.$site);
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })

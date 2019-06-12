@@ -1,11 +1,19 @@
+const path = require('path');
+
 module.exports = {
-  title: 'Hello VuePress',
-  description: 'Just playing around',
+  title: '香饽饽胖覆覆',
+  description: '你好骚啊～',
   markdown: {
     lineNumbers: true,
   },
   themeConfig: {
-    lastUpdated: '最后更新',
-    postDir: '/posts',
+    lastUpdated: '上次更新',
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@images': path.join(__dirname, '../images'),
+      },
+    },
   },
 };
