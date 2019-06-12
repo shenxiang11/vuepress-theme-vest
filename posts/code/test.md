@@ -1,3 +1,11 @@
+---
+title: 测试啊
+tags:
+- ps3
+- Games
+---
+
+
 # 查看主题
 
 第16节中提及了 kafka-topics.sh 脚本有5种指令类型：create、list、describe、alter 和 delete。其中 list 和 describe 指令可以用来方便地查看主题信息，在前面的内容中我们已经接触过了 describe 指令的用法，本节会对其做更细致的讲述。
