@@ -1,4 +1,10 @@
 {
+  "name": "vest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:shenxiang11/vuepress-theme-vest.git",
+  "author": "shenxiang93 <shenxiang@likingfit.com>",
+  "license": "MIT",
   "dependencies": {
     "dayjs": "^1.8.14",
     "lodash": "^4.17.11"
