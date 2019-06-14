@@ -2,7 +2,11 @@
   <main class="page">
     <slot name="top"/>
 
-    <Content class="theme-default-content"/>
+    <div class="theme-default-content" style="padding-bottom:0;">
+      <img :src="$frontmatter.thumbnail" />
+    </div>
+
+    <Content class="theme-default-content" style="padding-top:0;" />
 
     <footer class="page-edit">
       <div
